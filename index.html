@@ -1,520 +1,463 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kessie Zhang | AI Portfolio</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-  <style>
-    :root {
-      --primary: #4f46e5;
-      --secondary: #f59e42;
-      --bg: #f8fafc;
-      --text: #22223b;
-      --accent: #e0e7ff;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Roboto', Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      scroll-behavior: smooth;
-    }
-    header {
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      background: linear-gradient(120deg, var(--primary) 60%, var(--secondary) 100%);
-      overflow: hidden;
-    }
-    .hero-bg {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      z-index: 0;
-      pointer-events: none;
-    }
-    .hero-content {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      color: #fff;
-      padding: 2rem;
-    }
-    .hero-content h1 {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 3rem;
-      margin-bottom: 1rem;
-      letter-spacing: 2px;
-      animation: fadeInDown 1s;
-    }
-    .hero-content p {
-      font-size: 1.3rem;
-      margin-bottom: 2rem;
-      animation: fadeInUp 1.2s;
-    }
-    .hero-content a.cta {
-      display: inline-block;
-      background: var(--secondary);
-      color: #fff;
-      padding: 0.8rem 2rem;
-      border-radius: 30px;
-      font-weight: 500;
-      text-decoration: none;
-      font-size: 1.1rem;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-      transition: background 0.2s;
-      animation: fadeInUp 1.4s;
-    }
-    .hero-content a.cta:hover {
-      background: #ffb366;
-    }
-    nav {
-      position: fixed;
-      top: 0; left: 0; width: 100%;
-      background: rgba(255,255,255,0.95);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-      z-index: 10;
-      display: flex;
-      justify-content: center;
-      padding: 0.5rem 0;
-      transition: background 0.3s;
-    }
-    nav ul {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-    }
-    nav a {
-      color: var(--primary);
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 1rem;
-      transition: color 0.2s;
-    }
-    nav a:hover {
-      color: var(--secondary);
-    }
-    section {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 4rem 1.5rem;
-    }
-    .section-title {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 2.2rem;
-      color: var(--primary);
-      margin-bottom: 2rem;
-      text-align: center;
-      letter-spacing: 1px;
-    }
-    /* About */
-    .about {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 2.5rem;
-      justify-content: center;
-    }
-    .about-img {
-      flex: 0 0 180px;
-      width: 180px;
-      height: 180px;
-      border-radius: 50%;
-      background: var(--accent);
-      overflow: hidden;
-      box-shadow: 0 4px 24px rgba(79,70,229,0.08);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .about-img img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .about-text {
-      flex: 1 1 320px;
-      font-size: 1.15rem;
-    }
-    /* Projects */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 2rem;
-    }
-    .project-card {
-      background: #fff;
-      border-radius: 18px;
-      box-shadow: 0 4px 24px rgba(79,70,229,0.07);
-      padding: 0;
-      transition: transform 0.18s, box-shadow 0.18s;
-      position: relative;
-      overflow: hidden;
-      min-height: 320px;
-      display: flex;
-      flex-direction: column;
-      animation: fadeInUp 1s;
-    }
-    .project-image {
-      width: 100%;
-      height: 160px;
-      overflow: hidden;
-      position: relative;
-    }
-    .project-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.3s ease;
-    }
-    .project-card:hover .project-image img {
-      transform: scale(1.05);
-    }
-    .project-content {
-      padding: 1.5rem;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .project-card:hover {
-      transform: translateY(-8px) scale(1.03);
-      box-shadow: 0 8px 32px rgba(79,70,229,0.13);
-    }
-    .project-title {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 0.5rem;
-    }
-    .project-desc {
-      font-size: 1rem;
-      margin-bottom: 1rem;
-      color: #444;
-    }
-    .project-tag {
-      display: inline-block;
-      background: var(--accent);
-      color: var(--primary);
-      font-size: 0.9rem;
-      border-radius: 12px;
-      padding: 0.2rem 0.8rem;
-      margin-right: 0.5rem;
-      margin-bottom: 0.5rem;
-    }
-    /* Skills */
-    .skills-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      justify-content: center;
-      margin-top: 2rem;
-    }
-    .skill {
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 2px 12px rgba(79,70,229,0.07);
-      padding: 1rem 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      font-size: 1.1rem;
-      color: var(--primary);
-      font-weight: 500;
-      transition: background 0.2s;
-    }
-    .skill i {
-      font-size: 1.5rem;
-    }
-    .skill:hover {
-      background: var(--accent);
-    }
-    /* Contact */
-    .contact-form {
-      max-width: 420px;
-      margin: 0 auto;
-      background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 4px 24px rgba(79,70,229,0.07);
-      padding: 2rem 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1.2rem;
-      animation: fadeInUp 1s;
-    }
-    .contact-form input, .contact-form textarea {
-      width: 100%;
-      padding: 0.8rem;
-      border: 1px solid #e0e7ff;
-      border-radius: 8px;
-      font-size: 1rem;
-      font-family: inherit;
-      resize: none;
-    }
-    .contact-form button {
-      background: var(--primary);
-      color: #fff;
-      border: none;
-      padding: 0.8rem;
-      border-radius: 8px;
-      font-size: 1.1rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .contact-form button:hover {
-      background: var(--secondary);
-    }
-    .contact-links {
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      margin-top: 1.5rem;
-    }
-    .contact-links a {
-      color: var(--primary);
-      font-size: 1.7rem;
-      transition: color 0.2s;
-    }
-    .contact-links a:hover {
-      color: var(--secondary);
-    }
-    /* Animations */
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-40px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(40px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    /* Responsive */
-    @media (max-width: 700px) {
-      .about { flex-direction: column; gap: 1.5rem; }
-      .about-img { margin-bottom: 1rem; }
-      .section-title { font-size: 1.5rem; }
-      .hero-content h1 { font-size: 2.1rem; }
-    }
-  </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Kessie Zhang</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --cream:#f5ede3;--cream-dark:#ede3d8;
+    --blue:#5ba4cf;--blue-dark:#3a7fa8;--blue-light:#e8f4fc;
+    --text:#2c2c2a;--text-muted:#6b6b65;
+    --serif:'Georgia',serif;--sans:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  }
+  html{scroll-behavior:smooth}
+  body{background:var(--cream);color:var(--text);font-family:var(--sans);line-height:1.6;overflow-x:hidden}
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(245,237,227,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,0.06);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:60px;transition:box-shadow .3s}
+  nav.scrolled{box-shadow:0 2px 20px rgba(0,0,0,0.08)}
+  .nav-logo{font-family:var(--serif);font-style:italic;font-size:1.1rem;color:var(--text);text-decoration:none}
+  .nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
+  .nav-links a{text-decoration:none;color:var(--text-muted);font-size:.9rem;transition:color .2s}
+  .nav-links a:hover{color:var(--blue)}
+  .nav-btn{background:var(--blue);color:#fff;padding:.4rem 1.1rem;border-radius:6px;text-decoration:none;font-size:.9rem;transition:background .2s}
+  .nav-btn:hover{background:var(--blue-dark);color:#fff}
+  section{padding:6rem 2rem;max-width:1000px;margin:0 auto}
+  .section-label{font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:.5rem}
+  #hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding-top:60px;max-width:100%;position:relative}
+  .hero-inner{max-width:700px;margin:0 auto;padding:2rem}
+  .monogram{width:64px;height:64px;border-radius:50%;border:2px solid var(--blue);display:flex;align-items:center;justify-content:center;margin:0 auto 2rem;font-family:var(--serif);font-size:1.1rem;color:var(--blue);animation:fadeUp .8s ease both}
+  .hero-title{font-family:var(--serif);font-size:clamp(2.5rem,6vw,4rem);font-weight:400;line-height:1.15;margin-bottom:1.25rem;animation:fadeUp .8s .15s ease both}
+  .hero-title em{font-style:italic;color:var(--text)}
+  .hero-title .name{color:var(--blue)}
+  .hero-sub{font-size:1.05rem;color:var(--text-muted);max-width:480px;margin:0 auto 2rem;animation:fadeUp .8s .3s ease both}
+  .hero-sub u{text-underline-offset:4px;text-decoration-color:var(--blue)}
+  .hero-ctas{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;animation:fadeUp .8s .45s ease both}
+  .btn-primary{background:var(--blue);color:#fff;padding:.65rem 1.5rem;border-radius:8px;text-decoration:none;font-size:.9rem;transition:background .2s,transform .15s}
+  .btn-primary:hover{background:var(--blue-dark);transform:translateY(-2px)}
+  .btn-outline{background:transparent;color:var(--text);padding:.65rem 1.5rem;border-radius:8px;text-decoration:none;font-size:.9rem;border:1.5px solid rgba(0,0,0,0.2);transition:border-color .2s,transform .15s}
+  .btn-outline:hover{border-color:var(--blue);color:var(--blue);transform:translateY(-2px)}
+  .scroll-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.4rem;opacity:.5;animation:bounce 2s infinite}
+  .scroll-hint span{font-size:.75rem;color:var(--text-muted);letter-spacing:.08em}
+  .scroll-arrow{width:20px;height:20px;border-right:2px solid var(--text-muted);border-bottom:2px solid var(--text-muted);transform:rotate(45deg)}
+  #about{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+  .about-text h2{font-family:var(--serif);font-size:1.9rem;font-weight:400;margin-bottom:1.25rem}
+  .about-text p{color:var(--text-muted);margin-bottom:.9rem;font-size:.97rem}
+  .about-text p strong{color:var(--text);font-weight:600}
+  .about-text .superpower{margin-top:1.25rem;padding:1rem 1.25rem;background:var(--blue-light);border-left:3px solid var(--blue);border-radius:0 8px 8px 0;font-size:.92rem;color:var(--text)}
+  .photo-wrap{display:flex;justify-content:center;align-items:flex-start}
+  .photo-polaroid{position:relative;background:#fff;padding:10px 10px 28px;border-radius:4px;box-shadow:0 8px 28px rgba(0,0,0,0.13);max-width:260px;width:100%;transform:rotate(1.5deg)}
+  .photo-polaroid img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top;display:block;border-radius:2px}
+  .photo-tape{position:absolute;top:-12px;left:50%;transform:translateX(-50%) rotate(-2deg);width:56px;height:18px;background:rgba(184,134,11,0.35);border-radius:2px}
+  #projects{max-width:1000px}
+  #projects h2{font-family:var(--serif);font-size:1.9rem;font-weight:400;margin-bottom:.5rem}
+  #projects p.lead{color:var(--text-muted);margin-bottom:2.5rem;font-size:.97rem}
+  .proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.25rem}
+  .proj-card{background:#fff;border-radius:14px;overflow:hidden;border:1px solid rgba(0,0,0,0.07);transition:transform .25s,box-shadow .25s;cursor:pointer;text-decoration:none;display:block;color:inherit}
+  .proj-card:hover{transform:translateY(-5px);box-shadow:0 12px 32px rgba(0,0,0,0.1)}
+  .proj-thumb{height:148px;overflow:hidden;position:relative;flex-shrink:0}
+  .proj-thumb svg{width:100%;height:100%;display:block;transition:transform .4s}
+  .proj-card:hover .proj-thumb svg{transform:scale(1.04)}
+  .proj-body{padding:1.15rem}
+  .proj-body h3{font-size:1rem;font-weight:600;margin-bottom:.4rem}
+  .proj-body p{font-size:.82rem;color:var(--text-muted);margin-bottom:.75rem;line-height:1.5;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .tags{display:flex;gap:.4rem;flex-wrap:wrap}
+  .tag{background:var(--blue-light);color:var(--blue-dark);font-size:.72rem;padding:.2rem .55rem;border-radius:20px;font-weight:500}
+  .tag-llm{background:#eeedfe;color:#534AB7}
+  #recognition{max-width:1000px}
+  #recognition h2{font-family:var(--serif);font-size:1.9rem;font-weight:400;margin-bottom:2.5rem;text-align:center}
+  .rec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+  .rec-card{background:#fff;border-radius:14px;padding:1.35rem;border:1px solid rgba(0,0,0,0.07);position:relative;transition:transform .2s}
+  .rec-card:hover{transform:translateY(-3px)}
+  .rec-card::before{content:'\201C';font-family:var(--serif);font-size:3rem;line-height:1;color:var(--blue);opacity:.25;position:absolute;top:.5rem;left:1rem}
+  .rec-card p{font-size:.87rem;color:var(--text-muted);line-height:1.6;margin-bottom:.9rem}
+  .rec-card p strong{color:var(--blue);font-weight:600}
+  .rec-author{font-size:.8rem;color:var(--text-muted)}
+  .rec-author strong{color:var(--text);font-weight:600}
+  #skills{text-align:center;max-width:1000px}
+  #skills h2{font-family:var(--serif);font-size:1.9rem;font-weight:400;margin-bottom:2rem}
+  .skills-grid{display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center}
+  .skill-pill{background:#fff;border:1px solid rgba(0,0,0,0.1);border-radius:100px;padding:.55rem 1.25rem;font-size:.88rem;font-weight:500;transition:all .2s;cursor:default}
+  .skill-pill:hover{background:var(--blue);color:#fff;border-color:var(--blue);transform:scale(1.05)}
+  .skill-pill.hl{background:var(--blue-light);border-color:var(--blue);color:var(--blue-dark)}
+  #contact{text-align:center;max-width:700px}
+  #contact h2{font-family:var(--serif);font-size:2.2rem;font-weight:400;color:var(--blue);margin-bottom:.75rem;line-height:1.2}
+  #contact p{color:var(--text-muted);margin-bottom:2rem;font-size:.97rem}
+  .contact-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+  footer{text-align:center;padding:2rem;font-size:.8rem;color:var(--text-muted);border-top:1px solid rgba(0,0,0,0.06)}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.visible{opacity:1;transform:translateY(0)}
+  @media(max-width:680px){#about{grid-template-columns:1fr;gap:2rem}.rec-grid{grid-template-columns:1fr}.nav-links{gap:1rem}}
+</style>
 </head>
 <body>
-  <nav>
-    <ul>
-      <li><a href="#about">About</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
-  <header>
-    <canvas class="hero-bg" id="bg-canvas"></canvas>
-    <div class="hero-content">
-      <h1>Kessie Zhang</h1>
-      <p>Growth Data Scientist | Analytics Strategist<br>Driving business success with analytics, experimentation, and AI-driven strategies to accelerate growth.</p>
-      <a href="https://www.linkedin.com/in/kessie-zhang/" class="cta">Work with Me</a>
+
+<nav id="navbar">
+  <a class="nav-logo" href="#">Kessie Zhang</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#recognition">Recognition</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact" class="nav-btn">Contact</a></li>
+  </ul>
+</nav>
+
+<div id="hero">
+  <div class="hero-inner">
+    <div class="monogram">KZ</div>
+    <h1 class="hero-title"><em>Hello,</em> <span class="name">I am Kessie!</span></h1>
+    <p class="hero-sub">I believe great products start with great questions. My work blends data science, experimentation, AI, and product strategy to find the right answers and <u>build what matters</u>.</p>
+    <div class="hero-ctas">
+      <a class="btn-primary" href="#projects">View my work</a>
+      <a class="btn-outline" href="https://www.linkedin.com/in/kessie-zhang/" target="_blank">Connect on LinkedIn</a>
     </div>
-  </header>
-  <section id="about">
-    <h2 class="section-title">About Me</h2>
-    <div class="about">
-      <div class="about-img">
-        <img src="images/avatar.jpg" alt="Kessie Zhang portrait">
+  </div>
+  <div class="scroll-hint"><span>scroll</span><div class="scroll-arrow"></div></div>
+</div>
+
+<section id="about" class="reveal">
+  <div class="about-text">
+    <div class="section-label">✨ A bit about me</div>
+    <h2>Turning curiosity<br>into clarity</h2>
+    <p>I started my career following my curiosity — diving into data, storytelling, and helping others find clarity in complexity.</p>
+    <p>From <strong>analyzing user journeys</strong> to <strong>designing experiments</strong>, I've always loved turning ambiguity into insight.</p>
+    <p>Over the years, I've worked across tech, education, and consulting, solving messy problems with <strong>analytics, machine learning, and a product mindset</strong>.</p>
+    <p>Outside of work, I'm constantly exploring new AI techniques and learning new skills to improve how I think and work.</p>
+    <div class="superpower"><strong>Superpower:</strong> Turning vague questions into thoughtful analysis and clear decisions 📊</div>
+  </div>
+  <div class="photo-wrap">
+    <div class="photo-polaroid">
+      <div class="photo-tape"></div>
+      <img src="images/avatar.png" alt="Kessie Zhang"/>
+    </div>
+  </div>
+</section>
+
+<section id="projects" class="reveal">
+  <div class="section-label">All projects</div>
+  <h2>Projects</h2>
+  <p class="lead">A selection of LLM agents and classical ML projects spanning classification, NLP, and forecasting.</p>
+  <div class="proj-grid">
+
+    <!-- AI Coach -->
+    <a class="proj-card" href="https://github.com/kessiezhang/AI-Coach-Kessie" target="_blank">
+      <div class="proj-thumb">
+        <svg viewBox="0 0 320 148" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <linearGradient id="g-coach" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#c9b8f5"/>
+              <stop offset="100%" stop-color="#7c6fd4"/>
+            </linearGradient>
+          </defs>
+          <rect width="320" height="148" fill="url(#g-coach)"/>
+          <circle cx="80" cy="74" r="28" fill="rgba(255,255,255,0.12)"/>
+          <circle cx="80" cy="74" r="16" fill="rgba(255,255,255,0.18)"/>
+          <circle cx="160" cy="48" r="20" fill="rgba(255,255,255,0.12)"/>
+          <circle cx="240" cy="74" r="28" fill="rgba(255,255,255,0.12)"/>
+          <circle cx="240" cy="74" r="16" fill="rgba(255,255,255,0.18)"/>
+          <circle cx="160" cy="100" r="20" fill="rgba(255,255,255,0.12)"/>
+          <line x1="80" y1="74" x2="160" y2="48" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+          <line x1="80" y1="74" x2="160" y2="100" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+          <line x1="240" y1="74" x2="160" y2="48" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+          <line x1="240" y1="74" x2="160" y2="100" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+          <line x1="160" y1="48" x2="160" y2="100" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+          <circle cx="160" cy="74" r="10" fill="rgba(255,255,255,0.9)"/>
+          <circle cx="160" cy="74" r="22" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+          <circle cx="160" cy="74" r="36" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+          <text x="160" y="136" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="11" font-family="Georgia,serif" font-style="italic">AI Coach Kessie</text>
+        </svg>
       </div>
-      <div class="about-text">
-        <p>🌟 I drive business impact by turning data into actionable insights that inform strategic decisions. I specialize in machine learning and product experimentation, and I'm actively exploring practical applications of AI to solve real-world problems.</p>
+      <div class="proj-body">
+        <h3>AI Coach Kessie</h3>
+        <p>An AI-powered coaching agent built on an LLM that provides personalized career and productivity guidance, drawing on coaching frameworks to help users set goals and stay accountable.</p>
+        <div class="tags"><span class="tag tag-llm">LLM</span><span class="tag tag-llm">AI Agent</span></div>
       </div>
-    </div>
-  </section>
-  <section id="projects">
-    <h2 class="section-title">Machine Learning Projects</h2>
-    <div class="projects-grid">
-      <a href="https://github.com/kessiezhang/Airbnb-First-Booking-Prediction" class="project-card" style="text-decoration: none; color: inherit;">
-        <div class="project-image">
-          <img src="images/airbnb.jpg" alt="Prospect Targeting">
-        </div>
-        <div class="project-content">
-          <div>
-            <div class="project-title">Prospect Targeting</div>
-            <div class="project-desc">Ever wonder why you have certain promotion code while your friends don't receive any? This business strategy is called personalized marketing. The goal of personalized marketing is to attract prospective customers and retain loyal customers. This project will attempt to classify whether or not new users will book room services within a month after they create their airbnb accounts.</div>
-          </div>
-          <div>
-            <span class="project-tag">Classification</span>
-            <span class="project-tag">NLP</span>
-          </div>
-        </div>
-      </a>
-      <a href="https://github.com/kessiezhang/Credit_Default_Classification/blob/main/credit_card_default.ipynb" class="project-card" style="text-decoration: none; color: inherit;">
-        <div class="project-image">
-          <img src="images/credit_card_default.jpg" alt="Credit Default Prediction">
-        </div>
-        <div class="project-content">
-          <div>
-            <div class="project-title">Credit Default Prediction</div>
-            <div class="project-desc">A machine learning model to predict credit card default risk using customer payment history, demographic information, and credit utilization data. This classification model helps financial institutions assess creditworthiness and reduce default risk by identifying high-risk customers early.</div>
-          </div>
-          <div>
-            <span class="project-tag">Classification</span>
-            <span class="project-tag">Risk Assessment</span>
-          </div>
-        </div>
-      </a>
-      <a href="https://github.com/kessiezhang/Recommender-System-for-Perfume" class="project-card" style="text-decoration: none; color: inherit;">
-        <div class="project-image">
-          <img src="images/fragrances.jpg" alt="Recommender System for Perfume">
-        </div>
-        <div class="project-content">
-          <div>
-            <div class="project-title">Recommender System for Perfume</div>
-            <div class="project-desc">The goal of this project is to use natural language processing techniques to make perfume recommendations to users, based on their favorite perfumes. Ultimately, we can not only help them find cheaper alternatives to their favorite perfumes, but also help them discover their next signature scents.</div>
-          </div>
-          <div>
-            <span class="project-tag">NLP</span>
-            <span class="project-tag">Recommender</span>
-          </div>
-        </div>
-      </a>
-      <a href="https://github.com/kessiezhang/Hotel-Reviews-Analysis" class="project-card" style="text-decoration: none; color: inherit;">
-        <div class="project-image">
-          <img src="images/booking.jpg" alt="Hotel Reviews Analysis">
-        </div>
-        <div class="project-content">
-          <div>
-            <div class="project-title">Hotel Reviews Analysis</div>
-            <div class="project-desc">A lot of users have a difficult time finalizing their decisions when it comes to booking hotels, especially if there are many highly rated hotels for them to choose from. In order to resolve this problem, I built a model to extract the pros and cons words of each hotel to help end users make better and faster decisions.</div>
-          </div>
-          <div>
-            <span class="project-tag">NLP</span>
-            <span class="project-tag">Sentiment</span>
-          </div>
-        </div>
-      </a>
-      <a href="https://github.com/kessiezhang/Air-Passenger-Demand-Forecasting" class="project-card" style="text-decoration: none; color: inherit;">
-        <div class="project-image">
-          <img src="images/airline.jpg" alt="Air Passenger Demand Forecasting">
-        </div>
-        <div class="project-content">
-          <div>
-            <div class="project-title">Air Passenger Demand Forecasting</div>
-            <div class="project-desc">The goal of this project is to develop a time series model to forecast air passenger demand that could increase aircraft utilization. Utilization KPI is one of the most important KPIs for Airline Operations. It is calculated as the percentage of checked-in passengers in relation to available seats of an aircraft. This time series forecasting method can be used to forecast cargo demand, sales, stocks, sports performance, etc.</div>
-          </div>
-          <div>
-            <span class="project-tag">Time Series</span>
-            <span class="project-tag">Forecasting</span>
-          </div>
-        </div>
-      </a>
-      <a href="https://github.com/kessiezhang/NBA-Players-Salaries-Prediction" class="project-card" style="text-decoration: none; color: inherit;">
-        <div class="project-image">
-          <img src="images/salary.jpg" alt="NBA Players Salaries Prediction">
-        </div>
-        <div class="project-content">
-          <div>
-            <div class="project-title">NBA Players Salaries Prediction</div>
-            <div class="project-desc">The objective was to build a model that could help team managers use performance metrics to better allocate salaries among players. As for players, this model can help them understand which areas they need to improve on in order to increase their salaries.</div>
-          </div>
-          <div>
-            <span class="project-tag">Regression</span>
-            <span class="project-tag">ML</span>
-          </div>
-        </div>
-      </a>
-    </div>
-  </section>
-  <section id="skills">
-    <h2 class="section-title">Skills</h2>
-    <div class="skills-list">
-      <div class="skill"><i class="fab fa-python"></i> Python</div>
-      <div class="skill"><i class="fas fa-robot"></i> Machine Learning</div>
-      <div class="skill"><i class="fas fa-brain"></i> LLMs</div>
-      <div class="skill"><i class="fas fa-chart-line"></i> Statistics</div>
-      <div class="skill"><i class="fas fa-database"></i> SQL</div>
-      <div class="skill"><i class="fas fa-cloud"></i> AWS</div>
-      <div class="skill"><i class="fas fa-table"></i> Tableau</div>
-      <div class="skill"><i class="fas fa-language"></i> NLP</div>
-      <div class="skill"><i class="fas fa-project-diagram"></i> Data Transformation</div>
-      <div class="skill"><i class="fas fa-users"></i> Consulting</div>
-    </div>
-  </section>
-  <section id="contact">
-    <h2 class="section-title">Contact</h2>
-    <form class="contact-form" action="https://formspree.io/f/xyzjazbd" method="POST">
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="email" name="email" placeholder="Your Email" required>
-      <textarea name="message" rows="4" placeholder="Your Message" required></textarea>
-      <button type="submit">Send Message</button>
-    </form>
-    <div class="contact-links">
-      <a href="mailto:kessiezhang.data@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
-      <a href="https://www.linkedin.com/in/kessie-zhang/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-      <a href="https://github.com/kessiezhang" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-    </div>
-  </section>
-  <footer style="text-align:center;padding:2rem 0;color:#888;font-size:1rem;">
-    &copy; Kessie Zhang. All rights reserved.
-  </footer>
-  <script>
-    // Animated background (simple particles)
-    const canvas = document.getElementById('bg-canvas');
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = document.querySelector('header').offsetHeight;
-    }
-    function createParticles() {
-      particles = [];
-      for (let i = 0; i < 60; i++) {
-        particles.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          r: Math.random() * 2.5 + 1.5,
-          dx: (Math.random() - 0.5) * 0.7,
-          dy: (Math.random() - 0.5) * 0.7,
-          alpha: Math.random() * 0.5 + 0.3
-        });
-      }
-    }
-    function drawParticles() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (let p of particles) {
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, 2 * Math.PI);
-        ctx.fillStyle = `rgba(255,255,255,${p.alpha})`;
-        ctx.fill();
-        p.x += p.dx;
-        p.y += p.dy;
-        if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
-        if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
-      }
-      requestAnimationFrame(drawParticles);
-    }
-    window.addEventListener('resize', () => {
-      resizeCanvas();
-      createParticles();
-    });
-    resizeCanvas();
-    createParticles();
-    drawParticles();
-    // Smooth scroll for nav links
-    document.querySelectorAll('nav a').forEach(link => {
-      link.addEventListener('click', function(e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          window.scrollTo({
-            top: target.offsetTop - 60,
-            behavior: 'smooth'
-          });
-        }
-      });
-    });
-  </script>
+    </a>
+
+    <!-- Therapist Agent -->
+    <a class="proj-card" href="https://github.com/kessiezhang/Therapist_Agent" target="_blank">
+      <div class="proj-thumb">
+        <svg viewBox="0 0 320 148" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <linearGradient id="g-ther" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#a8d8c8"/>
+              <stop offset="100%" stop-color="#3a8c6e"/>
+            </linearGradient>
+          </defs>
+          <rect width="320" height="148" fill="url(#g-ther)"/>
+          <rect x="30" y="28" width="140" height="36" rx="12" fill="rgba(255,255,255,0.22)"/>
+          <polygon points="50,64 38,78 66,64" fill="rgba(255,255,255,0.22)"/>
+          <rect x="148" y="72" width="140" height="36" rx="12" fill="rgba(255,255,255,0.15)"/>
+          <polygon points="268,108 280,122 252,108" fill="rgba(255,255,255,0.15)"/>
+          <line x1="50" y1="43" x2="148" y2="43" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-linecap="round"/>
+          <line x1="50" y1="52" x2="110" y2="52" stroke="rgba(255,255,255,0.35)" stroke-width="2" stroke-linecap="round"/>
+          <line x1="168" y1="87" x2="268" y2="87" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-linecap="round"/>
+          <line x1="168" y1="96" x2="228" y2="96" stroke="rgba(255,255,255,0.35)" stroke-width="2" stroke-linecap="round"/>
+          <path d="M160 132 C152 124 138 120 138 110 C138 103 144 98 152 102 C155 103 158 106 160 109 C162 106 165 103 168 102 C176 98 182 103 182 110 C182 120 168 124 160 132Z" fill="rgba(255,255,255,0.35)"/>
+        </svg>
+      </div>
+      <div class="proj-body">
+        <h3>Therapist Agent</h3>
+        <p>A conversational AI therapist agent that uses evidence-based techniques (CBT, motivational interviewing) to support users through structured, empathetic dialogue.</p>
+        <div class="tags"><span class="tag tag-llm">LLM</span><span class="tag tag-llm">Agent</span><span class="tag tag-llm">NLP</span></div>
+      </div>
+    </a>
+
+    <!-- Airbnb -->
+    <a class="proj-card" href="https://github.com/kessiezhang/Airbnb-First-Booking-Prediction" target="_blank">
+      <div class="proj-thumb">
+        <svg viewBox="0 0 320 148" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <linearGradient id="g-airbnb" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#f7c59f"/>
+              <stop offset="100%" stop-color="#d4856a"/>
+            </linearGradient>
+          </defs>
+          <rect width="320" height="148" fill="url(#g-airbnb)"/>
+          <rect x="20" y="90" width="18" height="48" rx="2" fill="rgba(255,255,255,0.18)"/>
+          <rect x="44" y="72" width="22" height="66" rx="2" fill="rgba(255,255,255,0.22)"/>
+          <rect x="72" y="60" width="30" height="78" rx="2" fill="rgba(255,255,255,0.18)"/>
+          <rect x="108" y="78" width="20" height="60" rx="2" fill="rgba(255,255,255,0.15)"/>
+          <rect x="134" y="55" width="36" height="83" rx="2" fill="rgba(255,255,255,0.22)"/>
+          <rect x="176" y="68" width="26" height="70" rx="2" fill="rgba(255,255,255,0.18)"/>
+          <rect x="208" y="82" width="20" height="56" rx="2" fill="rgba(255,255,255,0.15)"/>
+          <rect x="234" y="50" width="28" height="88" rx="2" fill="rgba(255,255,255,0.22)"/>
+          <rect x="268" y="74" width="32" height="64" rx="2" fill="rgba(255,255,255,0.18)"/>
+          <rect x="78" y="68" width="6" height="6" rx="1" fill="rgba(255,255,255,0.45)"/>
+          <rect x="90" y="68" width="6" height="6" rx="1" fill="rgba(255,255,255,0.3)"/>
+          <rect x="78" y="80" width="6" height="6" rx="1" fill="rgba(255,255,255,0.3)"/>
+          <rect x="90" y="80" width="6" height="6" rx="1" fill="rgba(255,255,255,0.45)"/>
+          <rect x="140" y="64" width="8" height="8" rx="1" fill="rgba(255,255,255,0.45)"/>
+          <rect x="154" y="64" width="8" height="8" rx="1" fill="rgba(255,255,255,0.3)"/>
+          <rect x="140" y="78" width="8" height="8" rx="1" fill="rgba(255,255,255,0.45)"/>
+          <rect x="238" y="60" width="6" height="6" rx="1" fill="rgba(255,255,255,0.3)"/>
+          <rect x="250" y="60" width="6" height="6" rx="1" fill="rgba(255,255,255,0.45)"/>
+          <circle cx="260" cy="30" r="14" fill="rgba(255,255,255,0.3)"/>
+          <circle cx="260" cy="26" r="6" fill="rgba(255,255,255,0.8)"/>
+          <path d="M255 30 Q260 40 260 40 Q260 40 265 30" fill="rgba(255,255,255,0.8)"/>
+        </svg>
+      </div>
+      <div class="proj-body">
+        <h3>Prospect Targeting</h3>
+        <p>Predicts whether new Airbnb users will book within a month of signup using personalized marketing and classification models.</p>
+        <div class="tags"><span class="tag">Classification</span><span class="tag">NLP</span></div>
+      </div>
+    </a>
+
+    <!-- Credit -->
+    <a class="proj-card" href="https://github.com/kessiezhang/Credit_Default_Classification/blob/main/credit_card_default.ipynb" target="_blank">
+      <div class="proj-thumb">
+        <svg viewBox="0 0 320 148" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <linearGradient id="g-credit" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#4a90c4"/>
+              <stop offset="100%" stop-color="#1a5276"/>
+            </linearGradient>
+          </defs>
+          <rect width="320" height="148" fill="url(#g-credit)"/>
+          <rect x="60" y="30" width="200" height="88" rx="10" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+          <rect x="60" y="50" width="200" height="20" fill="rgba(255,255,255,0.12)"/>
+          <rect x="82" y="36" width="26" height="20" rx="4" fill="rgba(255,255,255,0.35)"/>
+          <line x1="82" y1="46" x2="108" y2="46" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+          <line x1="95" y1="36" x2="95" y2="56" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+          <circle cx="90" cy="88" r="3" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="100" cy="88" r="3" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="110" cy="88" r="3" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="120" cy="88" r="3" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="136" cy="88" r="3" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="146" cy="88" r="3" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="156" cy="88" r="3" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="166" cy="88" r="3" fill="rgba(255,255,255,0.5)"/>
+          <text x="182" y="93" fill="rgba(255,255,255,0.7)" font-size="10" font-family="monospace">4821</text>
+          <rect x="70" y="130" width="180" height="6" rx="3" fill="rgba(255,255,255,0.15)"/>
+          <rect x="70" y="130" width="60" height="6" rx="3" fill="rgba(255,200,100,0.7)"/>
+          <text x="160" y="143" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="9" font-family="sans-serif">risk score</text>
+        </svg>
+      </div>
+      <div class="proj-body">
+        <h3>Credit Default Prediction</h3>
+        <p>ML model to predict credit card default risk using customer payment history, demographics, and credit utilization data.</p>
+        <div class="tags"><span class="tag">Classification</span><span class="tag">Risk Assessment</span></div>
+      </div>
+    </a>
+
+    <!-- Perfume -->
+    <a class="proj-card" href="https://github.com/kessiezhang/Recommender-System-for-Perfume" target="_blank">
+      <div class="proj-thumb">
+        <svg viewBox="0 0 320 148" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <linearGradient id="g-perf" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#e8b4c8"/>
+              <stop offset="100%" stop-color="#9b5e7a"/>
+            </linearGradient>
+          </defs>
+          <rect width="320" height="148" fill="url(#g-perf)"/>
+          <rect x="130" y="68" width="60" height="64" rx="8" fill="rgba(255,255,255,0.25)" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+          <rect x="140" y="54" width="40" height="18" rx="4" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
+          <rect x="150" y="44" width="20" height="14" rx="3" fill="rgba(255,255,255,0.35)"/>
+          <rect x="132" y="100" width="56" height="30" rx="0 0 7 7" fill="rgba(255,255,255,0.18)"/>
+          <path d="M100 40 Q110 25 120 40 Q130 55 140 40" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M180 30 Q190 15 200 30 Q210 45 220 30" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M150 22 Q160 8 170 22" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="1.5" stroke-linecap="round"/>
+          <rect x="138" y="78" width="44" height="28" rx="3" fill="rgba(255,255,255,0.2)"/>
+          <line x1="144" y1="87" x2="176" y2="87" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+          <line x1="148" y1="93" x2="172" y2="93" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+          <line x1="152" y1="99" x2="168" y2="99" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+        </svg>
+      </div>
+      <div class="proj-body">
+        <h3>Recommender System for Perfume</h3>
+        <p>NLP-based perfume recommendations that help users find cheaper alternatives or discover their next signature scent.</p>
+        <div class="tags"><span class="tag">NLP</span><span class="tag">Recommender</span></div>
+      </div>
+    </a>
+
+    <!-- Hotel -->
+    <a class="proj-card" href="https://github.com/kessiezhang/Hotel-Reviews-Analysis" target="_blank">
+      <div class="proj-thumb">
+        <svg viewBox="0 0 320 148" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <linearGradient id="g-hotel" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#f0d080"/>
+              <stop offset="100%" stop-color="#b8860b"/>
+            </linearGradient>
+          </defs>
+          <rect width="320" height="148" fill="url(#g-hotel)"/>
+          <rect x="90" y="40" width="140" height="100" rx="4" fill="rgba(255,255,255,0.18)"/>
+          <rect x="104" y="54" width="16" height="14" rx="2" fill="rgba(255,255,255,0.4)"/>
+          <rect x="128" y="54" width="16" height="14" rx="2" fill="rgba(255,255,255,0.3)"/>
+          <rect x="152" y="54" width="16" height="14" rx="2" fill="rgba(255,255,255,0.4)"/>
+          <rect x="176" y="54" width="16" height="14" rx="2" fill="rgba(255,255,255,0.25)"/>
+          <rect x="200" y="54" width="16" height="14" rx="2" fill="rgba(255,255,255,0.4)"/>
+          <rect x="104" y="76" width="16" height="14" rx="2" fill="rgba(255,255,255,0.3)"/>
+          <rect x="128" y="76" width="16" height="14" rx="2" fill="rgba(255,255,255,0.45)"/>
+          <rect x="152" y="76" width="16" height="14" rx="2" fill="rgba(255,255,255,0.25)"/>
+          <rect x="176" y="76" width="16" height="14" rx="2" fill="rgba(255,255,255,0.4)"/>
+          <rect x="200" y="76" width="16" height="14" rx="2" fill="rgba(255,255,255,0.3)"/>
+          <rect x="142" y="110" width="36" height="30" rx="3" fill="rgba(255,255,255,0.25)"/>
+          <text x="160" y="34" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="14" font-family="sans-serif">★ ★ ★ ★ ★</text>
+        </svg>
+      </div>
+      <div class="proj-body">
+        <h3>Hotel Reviews Analysis</h3>
+        <p>Extracts pros and cons from hotel reviews to help users make faster, better-informed booking decisions.</p>
+        <div class="tags"><span class="tag">NLP</span><span class="tag">Sentiment</span></div>
+      </div>
+    </a>
+
+    <!-- Airline -->
+    <a class="proj-card" href="https://github.com/kessiezhang/Air-Passenger-Demand-Forecasting" target="_blank">
+      <div class="proj-thumb">
+        <svg viewBox="0 0 320 148" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <linearGradient id="g-air" x1="0" y1="1" x2="1" y2="0">
+              <stop offset="0%" stop-color="#1a3a6b"/>
+              <stop offset="100%" stop-color="#4a90c4"/>
+            </linearGradient>
+          </defs>
+          <rect width="320" height="148" fill="url(#g-air)"/>
+          <circle cx="40" cy="30" r="2" fill="rgba(255,255,255,0.6)"/>
+          <circle cx="80" cy="20" r="1.5" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="200" cy="25" r="2" fill="rgba(255,255,255,0.6)"/>
+          <circle cx="270" cy="35" r="1.5" fill="rgba(255,255,255,0.4)"/>
+          <circle cx="300" cy="18" r="2" fill="rgba(255,255,255,0.5)"/>
+          <polyline points="20,120 60,105 100,95 140,85 180,70 220,55 260,45 300,35" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <polyline points="20,120 60,108 100,100 140,90 180,78 220,65 260,52 300,42" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="2"/>
+          <g transform="translate(210,58) rotate(-20)">
+            <ellipse cx="0" cy="0" rx="22" ry="6" fill="rgba(255,255,255,0.85)"/>
+            <polygon points="10,-4 22,0 10,4" fill="rgba(255,255,255,0.85)"/>
+            <polygon points="-6,-6 6,-4 2,0 -6,0" fill="rgba(255,255,255,0.7)"/>
+            <polygon points="-4,6 4,4 2,0 -4,0" fill="rgba(255,255,255,0.6)"/>
+            <polygon points="-18,2 -10,1 -10,-1 -18,-1" fill="rgba(255,255,255,0.7)"/>
+          </g>
+        </svg>
+      </div>
+      <div class="proj-body">
+        <h3>Air Passenger Demand Forecasting</h3>
+        <p>Time series model to forecast air passenger demand and increase aircraft utilization, a key airline operations KPI.</p>
+        <div class="tags"><span class="tag">Time Series</span><span class="tag">Forecasting</span></div>
+      </div>
+    </a>
+
+    <!-- NBA -->
+    <a class="proj-card" href="https://github.com/kessiezhang/NBA-Players-Salaries-Prediction" target="_blank">
+      <div class="proj-thumb">
+        <svg viewBox="0 0 320 148" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <linearGradient id="g-nba" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#c8410b"/>
+              <stop offset="100%" stop-color="#7a2505"/>
+            </linearGradient>
+          </defs>
+          <rect width="320" height="148" fill="url(#g-nba)"/>
+          <ellipse cx="160" cy="74" rx="50" ry="50" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+          <line x1="160" y1="24" x2="160" y2="124" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+          <line x1="20" y1="74" x2="300" y2="74" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+          <rect x="50" y="95" width="20" height="35" rx="2" fill="rgba(255,255,255,0.25)"/>
+          <rect x="78" y="75" width="20" height="55" rx="2" fill="rgba(255,255,255,0.3)"/>
+          <rect x="106" y="58" width="20" height="72" rx="2" fill="rgba(255,255,255,0.35)"/>
+          <rect x="134" y="45" width="20" height="85" rx="2" fill="rgba(255,255,255,0.4)"/>
+          <rect x="162" y="35" width="20" height="95" rx="2" fill="rgba(255,255,255,0.45)"/>
+          <rect x="190" y="48" width="20" height="82" rx="2" fill="rgba(255,255,255,0.3)"/>
+          <rect x="218" y="62" width="20" height="68" rx="2" fill="rgba(255,255,255,0.25)"/>
+          <rect x="246" y="78" width="20" height="52" rx="2" fill="rgba(255,255,255,0.2)"/>
+          <circle cx="275" cy="34" r="18" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/>
+          <path d="M258 34 Q275 22 292 34" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+          <path d="M258 34 Q275 46 292 34" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+          <line x1="275" y1="16" x2="275" y2="52" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+        </svg>
+      </div>
+      <div class="proj-body">
+        <h3>NBA Player Salary Prediction</h3>
+        <p>Regression model helping team managers allocate salaries using performance metrics and players identify areas to improve.</p>
+        <div class="tags"><span class="tag">Regression</span><span class="tag">ML</span></div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<section id="recognition" class="reveal">
+  <div class="section-label" style="text-align:center">⭐ Workplace recognition</div>
+  <h2>What colleagues say</h2>
+  <div class="rec-grid">
+    <div class="rec-card"><p>You are a <strong>natural when it comes to thinking through design and user experience</strong> and making sure we are asking the right questions. We are already seeing the impact of this work!</p><div class="rec-author">— Cait N., <strong>Lead UX Researcher</strong></div></div>
+    <div class="rec-card"><p>You took the time to break apart the initiative fully. <strong>Your curiosity, creativity, and dedication greatly enhanced our approach and outcomes!</strong></p><div class="rec-author">— Olivia R., <strong>Customer Success</strong></div></div>
+    <div class="rec-card"><p><strong>I admire how you approached several roadblocks and explored alternative solutions</strong> to ensure we reached our expected outcome. Thank you for your innovative approach!</p><div class="rec-author">— Oluwunmi A., <strong>Product Manager</strong></div></div>
+    <div class="rec-card"><p><strong>You're always up for a challenge and ready with creative solutions to difficult problems.</strong> Most importantly, you're incredibly kind and wonderful to work with.</p><div class="rec-author">— Leigh B., <strong>Marketing</strong></div></div>
+    <div class="rec-card"><p>What I find best about you is that <strong>you go the extra mile to close any remaining gaps.</strong> Looking forward to keeping working with you!</p><div class="rec-author">— Subir R., <strong>Product Manager</strong></div></div>
+    <div class="rec-card"><p>I thank you for your <strong>curiosity, diligence, patience and guidance</strong> in how to best represent the answers and insights we're looking to learn!</p><div class="rec-author">— Iulia A., <strong>Product Manager</strong></div></div>
+  </div>
+</section>
+
+<section id="skills" class="reveal">
+  <div class="section-label">What I work with</div>
+  <h2>Skills</h2>
+  <div class="skills-grid">
+    <span class="skill-pill hl">Python</span><span class="skill-pill hl">Machine Learning</span><span class="skill-pill hl">LLMs</span><span class="skill-pill hl">Experimentation</span><span class="skill-pill">SQL</span><span class="skill-pill">Statistics</span><span class="skill-pill">Natural Language Processing (NLP)</span><span class="skill-pill">RAG Pipelines</span><span class="skill-pill">AI Agents</span><span class="skill-pill">AWS</span><span class="skill-pill">Tableau</span><span class="skill-pill">Data Visualization</span><span class="skill-pill">Data Transformation</span><span class="skill-pill">Product Strategy</span><span class="skill-pill">Consulting</span>
+  </div>
+</section>
+
+<section id="contact" class="reveal">
+  <div class="section-label">Get in touch</div>
+  <h2>Let's build data-driven products that make a difference.</h2>
+  <p>I love working at the intersection of data, product, and people. If you're building something thoughtful, or exploring ideas in product, AI, or analytics, I'd love to connect!</p>
+  <div class="contact-btns">
+    <a class="btn-primary" href="https://www.linkedin.com/in/kessie-zhang/" target="_blank">Let's connect!</a>
+    <a class="btn-outline" href="https://github.com/kessiezhang" target="_blank">View GitHub</a>
+  </div>
+</section>
+
+<footer>© Kessie Zhang. All rights reserved.</footer>
+
+<script>
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>20));
+  const obs = new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
+</script>
 </body>
-</html> 
+</html>
